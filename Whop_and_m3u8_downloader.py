@@ -192,7 +192,11 @@ class WhopDownloaderApp(tk.Tk):
 
         # Theme Toggle
         self.btn_theme = tk.Button(self.options_frame, text="Toggle Dark Mode", command=self.toggle_theme)
-        self.btn_theme.pack(side=tk.RIGHT, padx=10)
+        self.btn_theme.pack(side=tk.RIGHT, padx=5)
+
+        # Help Button
+        self.btn_help = tk.Button(self.options_frame, text="Help / Guide", command=self.open_help_window, bg="#2196F3", fg="white")
+        self.btn_help.pack(side=tk.RIGHT, padx=5)
 
         # --- Middle Split View ---
         middle_pane = tk.PanedWindow(self, orient=tk.HORIZONTAL, sashrelief=tk.RAISED)
@@ -585,10 +589,34 @@ class WhopDownloaderApp(tk.Tk):
     def open_help_window(self):
         help_win = tk.Toplevel(self)
         help_win.title("Help & Tutorial")
-        help_win.geometry("800x600")
+        help_win.geometry("850x650")
 
         notebook = ttk.Notebook(help_win)
         notebook.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
+        
+        # Tab 0: Installation (Importance: High)
+        tab_install = tk.Frame(notebook, bg="white")
+        notebook.add(tab_install, text="Installation & Setup")
+        self._create_help_text(tab_install, """
+        1. INSTALLING FFMPEG (REQUIRED)
+        --------------------------------
+        This tool relies on 'FFmpeg' to download and process videos. If you do not have it, the downloads will fail.
+        
+        Method A: The Easy Way (Bundle)
+        - Download 'ffmpeg.exe' from the internet (e.g., from gyan.dev or official sites).
+        - Place the 'ffmpeg.exe' file INSIDE the same folder as this application.
+        
+        Method B: System Installation
+        - Install FFmpeg on your system and ensure it is added to your System PATH variables.
+        - To verify: Open a terminal (CMD) and type 'ffmpeg -version'. If it shows text, you are good to go.
+        
+        2. APPLICATION SETTINGS
+        --------------------------------
+        - Text File: Load your links file here.
+        - Output Folder: Where the videos will be saved.
+        - Audio Only: Check this if you just want to listen to the lessons (creates .mp3 files).
+        - Smart Add (Watch Clipboard): If enabled, simply COPYING a link (Ctrl+C) while the app is open will prompt you to add it instantly.
+        """)
 
         # Tab 1: Application Logic
         tab1 = tk.Frame(notebook, bg="white")
